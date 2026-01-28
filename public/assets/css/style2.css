@@ -1,0 +1,337 @@
+:root {
+  --bg: #f7f9fc;
+  --ink: #1f2937;
+  --card: #ffffff;
+  --accent: #6366f1; /* primary color */
+  --accent2: #22c55e; /* success / health green */
+  --border: #e5e7eb;
+  --radius: 12px;
+  --max: 1100px;
+  --font:
+    ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial,
+    "Noto Sans";
+  --danger: #ef4444; /* Added for delete actions */
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.6;
+}
+
+/* ===== CONTAINER ===== */
+.container {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* ===== NAVBAR ===== */
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 20px;
+}
+
+.brand {
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.brand span {
+  color: var(--accent);
+}
+
+.nav a {
+  text-decoration: none;
+  color: var(--ink);
+  font-weight: 500;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: 0.2s;
+}
+
+.nav a:hover {
+  background: #eef2ff;
+  color: var(--accent);
+}
+
+/* ===== HERO SECTION ===== */
+.hero {
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 20px;
+}
+
+@media (max-width: 900px) {
+  .hero {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== CARDS ===== */
+.card {
+  background: var(--card);
+  padding: 20px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+  margin-bottom: 20px;
+}
+
+/* ===== TEXT ===== */
+.h1 {
+  font-size: 36px;
+  margin: 0 0 10px;
+  font-weight: 700;
+}
+
+.p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #4b5563;
+  margin-bottom: 1rem;
+}
+
+/* ===== BADGE ===== */
+.badge {
+  display: inline-block;
+  background: #ecfeff;
+  color: #0f766e;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+/* ===== BUTTONS ===== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 16px;
+  font-weight: 600;
+  border-radius: 10px;
+  background: var(--accent);
+  color: white;
+  border: none;
+  text-decoration: none;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn:hover {
+  background: #4f46e5;
+  opacity: 0.9;
+}
+
+.btn.secondary {
+  background: #f3f4f6;
+  color: var(--ink);
+  border: 1px solid transparent;
+}
+
+.btn.secondary:hover {
+  background: #e5e7eb;
+}
+
+/* Small button */
+.btn-sm {
+  padding: 8px 12px;
+  font-size: 13px;
+}
+
+/* ===== GRID ===== */
+.grid3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 16px;
+}
+
+@media (max-width: 900px) {
+  .grid3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== SMALL TEXT ===== */
+.small {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* ===== INPUTS ===== */
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  font-size: 14px;
+  outline: none;
+  transition: 0.2s;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+/* ===== USER TABLE ===== */
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.user-table th {
+  text-align: left;
+  padding: 12px;
+  font-size: 14px;
+  color: #6b7280;
+  border-bottom: 1px solid var(--border);
+}
+
+.user-table td {
+  padding: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.user-row:hover {
+  background: #f9fafb;
+}
+
+/* ===== YOU BADGE ===== */
+.you-badge {
+  margin-left: 6px;
+  padding: 3px 8px;
+  font-size: 12px;
+  border-radius: 999px;
+  background: #dcfce7;
+  color: #166534;
+  font-weight: 600;
+}
+
+/* =========================================
+   ADDITIONAL UTILITIES FOR FUNCTIONALITY
+   ========================================= */
+
+/* Flex Utilities */
+.flex-between-center {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Form Groups */
+.form-group {
+  margin-bottom: 15px;
+}
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+/* Dashed Card for Toggle Forms */
+.dashed-card {
+  border: 2px dashed var(--border);
+  padding: 20px;
+  border-radius: var(--radius);
+  margin-top: 20px;
+  display: none;
+  background: #f9fafb;
+}
+.dashed-card.active {
+  display: block;
+  animation: fadeIn 0.3s ease;
+}
+
+/* Dashed Card for Edit Mode (Always visible) */
+.dashed-card-edit {
+  border: 2px dashed var(--accent);
+  padding: 20px;
+  border-radius: var(--radius);
+  margin-bottom: 20px;
+  background: #f0fdf4;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Messages */
+.msg-error {
+  background: #fef2f2;
+  color: var(--danger);
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #fee2e2;
+}
+.msg-success {
+  background: #ecfdf5;
+  color: var(--accent2);
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #d1fae5;
+}
+
+/* Delete Button Link Style */
+.btn-delete {
+  background: none;
+  border: none;
+  color: var(--danger);
+  cursor: pointer;
+  font-size: 14px;
+  text-decoration: underline;
+  margin-left: 10px;
+  padding: 0;
+}
+.btn-delete:hover {
+  color: #b91c1c;
+}
+
+/* Visibility Utilities */
+.hidden-log,
+.hidden-routine,
+.hidden-feedback {
+  display: none !important;
+}
+
+.mt-30 {
+  margin-top: 30px;
+}
+
+.pre-line {
+  white-space: pre-line;
+}
