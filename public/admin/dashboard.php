@@ -31,30 +31,52 @@ try {
     // ignore
 }
 
+<<<<<<< HEAD
 // Fetch Recent Logs (no SQL LIMIT — JS handles pagination)
+=======
+// Fetch Recent Logs
+>>>>>>> 4ba565007834e00652d6c32b8716554a6c2e691c
 $recent_logs = [];
 try {
     $stmt = $pdo->query("
         SELECT al.*, u.name as user_name 
         FROM activity_logs al 
         JOIN users u ON al.user_id = u.id 
+<<<<<<< HEAD
         ORDER BY al.created_at DESC
+=======
+        ORDER BY al.created_at DESC 
+        LIMIT 10
+>>>>>>> 4ba565007834e00652d6c32b8716554a6c2e691c
     ");
     $recent_logs = $stmt->fetchAll();
 } catch (PDOException $e) {
     // ignore
 }
 
+<<<<<<< HEAD
 // Fetch Trainer Replies (no SQL LIMIT — JS handles pagination)
 $trainer_replies = [];
 try {
     $stmt = $pdo->query("
         SELECT tr.*, u.name as trainer_name, u.role as replier_role, rf.comment as user_comment, r.title as routine_title
+=======
+// Fetch Trainer Replies
+$trainer_replies = [];
+try {
+    $stmt = $pdo->query("
+        SELECT tr.*, u.name as trainer_name, rf.comment as user_comment, r.title as routine_title
+>>>>>>> 4ba565007834e00652d6c32b8716554a6c2e691c
         FROM trainer_replies tr 
         JOIN users u ON tr.trainer_id = u.id
         JOIN routine_feedback rf ON tr.feedback_id = rf.id
         JOIN routines r ON rf.routine_id = r.id
+<<<<<<< HEAD
         ORDER BY tr.created_at DESC
+=======
+        ORDER BY tr.created_at DESC 
+        LIMIT 10
+>>>>>>> 4ba565007834e00652d6c32b8716554a6c2e691c
     ");
     $trainer_replies = $stmt->fetchAll();
 } catch (PDOException $e) {
@@ -112,8 +134,13 @@ try {
             <?php if (empty($recent_logs)): ?>
                 <div class="card"><p>No activities found.</p></div>
             <?php else: ?>
+<<<<<<< HEAD
                 <?php foreach ($recent_logs as $lIndex => $log): ?>
                     <div class="card admin-log-item <?php echo $lIndex >= 10 ? 'hidden-log-item' : ''; ?>" style="padding: 15px; margin-bottom: 10px; <?php echo $lIndex >= 10 ? 'display:none;' : ''; ?>">
+=======
+                <?php foreach ($recent_logs as $log): ?>
+                    <div class="card" style="padding: 15px; margin-bottom: 10px;">
+>>>>>>> 4ba565007834e00652d6c32b8716554a6c2e691c
                         <div class="flex-between-center">
                             <strong><?php echo htmlspecialchars($log['user_name']); ?></strong>
                             <span class="badge"><?php echo htmlspecialchars(ucfirst($log['type'])); ?></span>
@@ -122,6 +149,7 @@ try {
                         <small style="color: #999;"><?php echo $log['created_at']; ?></small>
                     </div>
                 <?php endforeach; ?>
+<<<<<<< HEAD
                 <?php if (count($recent_logs) > 10): ?>
                     <div style="text-align: center; margin-top: 10px;">
                         <button id="show-more-logs" class="btn secondary" onclick="showMoreLogs()">Show More Activities</button>
@@ -131,11 +159,18 @@ try {
         </div>
 
         <!-- Replies -->
+=======
+            <?php endif; ?>
+        </div>
+
+        <!-- Recent Trainer Replies -->
+>>>>>>> 4ba565007834e00652d6c32b8716554a6c2e691c
         <div>
             <h2 class="h1">Trainer Replies</h2>
             <?php if (empty($trainer_replies)): ?>
                 <div class="card"><p>No replies found.</p></div>
             <?php else: ?>
+<<<<<<< HEAD
                 <?php foreach ($trainer_replies as $rIdx => $reply): ?>
                     <?php
                         $replyTag = match($reply['replier_role'] ?? 'trainer') {
@@ -149,6 +184,11 @@ try {
                             <strong><?php echo htmlspecialchars($reply['trainer_name']); ?> <span class="badge" style="font-size:11px;"><?php echo $replyTag; ?></span></strong>
                             <small style="color:#999;"><?php echo date('M d, Y', strtotime($reply['created_at'])); ?></small>
                         </div>
+=======
+                <?php foreach ($trainer_replies as $reply): ?>
+                    <div class="card" style="padding: 15px; margin-bottom: 10px; border-left: 4px solid var(--accent);">
+                        <strong style="display: block; margin-bottom: 5px;"><?php echo htmlspecialchars($reply['trainer_name']); ?></strong>
+>>>>>>> 4ba565007834e00652d6c32b8716554a6c2e691c
                         <p class="small" style="margin-bottom: 5px;">On: <?php echo htmlspecialchars($reply['routine_title']); ?></p>
                         <p style="font-style: italic; background: #f9f9f9; padding: 5px;">"<?php echo htmlspecialchars($reply['reply']); ?>"</p>
                         <form method="post" onsubmit="return confirm('Delete this reply?');" style="margin-top: 10px; text-align: right;">
@@ -158,16 +198,20 @@ try {
                         </form>
                     </div>
                 <?php endforeach; ?>
+<<<<<<< HEAD
                 <?php if (count($trainer_replies) > 10): ?>
                     <div style="text-align: center; margin-top: 10px;">
                         <button id="show-more-replies" class="btn secondary" onclick="showMoreReplies()">Show More Replies</button>
                     </div>
                 <?php endif; ?>
+=======
+>>>>>>> 4ba565007834e00652d6c32b8716554a6c2e691c
             <?php endif; ?>
         </div>
     </div>
 </div>
 
+<<<<<<< HEAD
 <script>
 function showMoreLogs() {
     const hidden = document.querySelectorAll('.hidden-log-item');
@@ -192,4 +236,6 @@ function showMoreReplies() {
 }
 </script>
 
+=======
+>>>>>>> 4ba565007834e00652d6c32b8716554a6c2e691c
 <?php include "../ui_footer.php"; ?>

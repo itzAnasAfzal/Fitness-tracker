@@ -136,8 +136,13 @@ include "ui_header.php";
 
     <!-- List -->
     <div class="mt-30">
+<<<<<<< HEAD
         <?php foreach ($tips as $tIndex => $tip): ?>
             <div class="card card-item <?php echo $tIndex >= 10 ? 'hidden-tip' : ''; ?>" style="<?php echo $tIndex >= 10 ? 'display: none;' : ''; ?>">
+=======
+        <?php foreach ($tips as $tip): ?>
+            <div class="card card-item">
+>>>>>>> 4ba565007834e00652d6c32b8716554a6c2e691c
                 <div class="flex-between">
                     <h2 style="margin-top: 0;"><?php echo htmlspecialchars($tip['title']); ?></h2>
                     <?php if ($is_admin_or_trainer): ?>
@@ -158,14 +163,18 @@ include "ui_header.php";
         
         <?php if (empty($tips)): ?>
             <p>No tips available yet.</p>
+<<<<<<< HEAD
         <?php elseif (count($tips) > 10): ?>
             <div style="text-align: center; margin-top: 20px;">
                 <button id="load-more-tips" class="btn secondary" onclick="loadMoreTips()">Load More Tips</button>
             </div>
+=======
+>>>>>>> 4ba565007834e00652d6c32b8716554a6c2e691c
         <?php endif; ?>
     </div>
 </div>
 
+<<<<<<< HEAD
 <script>
 function loadMoreTips() {
     const hidden = document.querySelectorAll('.hidden-tip');
@@ -183,4 +192,6 @@ function loadMoreTips() {
 }
 </script>
 
+=======
+>>>>>>> 4ba565007834e00652d6c32b8716554a6c2e691c
 <?php include "ui_footer.php"; ?>
