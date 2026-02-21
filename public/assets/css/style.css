@@ -1,0 +1,228 @@
+:root {
+  --bg: #f6f6f6;
+  --ink: #111;
+  --card: #ffffff;
+  --accent: #6c5ce7; /* you can change later */
+  --accent2: #00d2d3;
+  --border: 3px;
+  --shadow: 8px;
+  --radius: 14px;
+  --max: 1100px;
+  --font:
+    ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial,
+    "Noto Sans";
+}
+
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font-family: var(--font);
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 20% 10%, #fff 0 20%, transparent 21%),
+    radial-gradient(circle at 80% 30%, #fff 0 18%, transparent 19%), var(--bg);
+}
+
+.container {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 18px;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  background: var(--card);
+  border: var(--border) solid var(--ink);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow) var(--shadow) 0 var(--ink);
+}
+
+.brand {
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  font-size: 20px;
+}
+.brand span {
+  color: var(--accent);
+}
+
+.nav a {
+  text-decoration: none;
+  color: var(--ink);
+  font-weight: 700;
+  padding: 10px 12px;
+  border: var(--border) solid transparent;
+  border-radius: 12px;
+}
+.nav a:hover {
+  border-color: var(--ink);
+  box-shadow: 4px 4px 0 var(--ink);
+  transform: translate(-1px, -1px);
+}
+
+.hero {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 18px;
+}
+@media (max-width: 900px) {
+  .hero {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card {
+  background: var(--card);
+  border: var(--border) solid var(--ink);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow) var(--shadow) 0 var(--ink);
+  padding: 18px;
+}
+
+.h1 {
+  font-size: 44px;
+  margin: 0 0 8px;
+  line-height: 1.05;
+}
+.p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
+.badge {
+  display: inline-block;
+  background: var(--accent2);
+  border: var(--border) solid var(--ink);
+  box-shadow: 4px 4px 0 var(--ink);
+  border-radius: 999px;
+  padding: 8px 12px;
+  font-weight: 900;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 14px;
+  font-weight: 900;
+  border: var(--border) solid var(--ink);
+  border-radius: 14px;
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 6px 6px 0 var(--ink);
+  text-decoration: none;
+  cursor: pointer;
+}
+.btn:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 7px 7px 0 var(--ink);
+}
+.btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+.btn.secondary {
+  background: #fff;
+  color: var(--ink);
+}
+
+.grid3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-top: 14px;
+}
+@media (max-width: 900px) {
+  .grid3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+.small {
+  font-size: 13px;
+  opacity: 0.85;
+}
+
+input {
+  width: 100%;
+  padding: 14px;
+  border: var(--border) solid var(--ink);
+  border-radius: var(--radius);
+  font-weight: 700;
+  box-shadow: 6px 6px 0 var(--ink);
+  outline: none;
+}
+
+input:focus {
+  transform: translate(-1px, -1px);
+  box-shadow: 7px 7px 0 var(--ink);
+}
+
+/* ===== NEO SELECT (Reusable) ===== */
+.neo-select {
+  padding: 10px 12px;
+  font-weight: 800;
+  border: var(--border) solid var(--ink);
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 4px 4px 0 var(--ink);
+  cursor: pointer;
+}
+
+.neo-select:focus {
+  outline: none;
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0 var(--ink);
+}
+
+/* ===== USER TABLE ===== */
+.user-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 12px;
+}
+
+.user-table th {
+  text-align: left;
+  padding-bottom: 8px;
+}
+
+.user-row {
+  background: var(--card);
+  border: var(--border) solid var(--ink);
+  border-radius: var(--radius);
+  box-shadow: 6px 6px 0 var(--ink);
+}
+
+.user-row td {
+  padding: 12px;
+}
+
+/* ===== YOU BADGE ===== */
+.you-badge {
+  margin-left: 8px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 900;
+  border-radius: 999px;
+  background: var(--accent2);
+  border: var(--border) solid var(--ink);
+  box-shadow: 2px 2px 0 var(--ink);
+}
+
+/* ===== SMALL BUTTON ===== */
+.btn-sm {
+  padding: 8px 12px;
+  font-size: 13px;
+}
