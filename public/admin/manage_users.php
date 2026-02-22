@@ -58,18 +58,11 @@ if (isset($_GET["delete"])) {
      </thead>
 
 
-<<<<<<< HEAD
      <?php $i = 1; $uIndex = 0; ?>
      <tbody>
     <?php foreach ($users as $u): ?>
     <tr class="user-row <?php echo $uIndex >= 10 ? 'hidden-user-row' : ''; ?>" <?php echo $uIndex >= 10 ? 'style="display:none;"' : ''; ?>>
     <?php $uIndex++; ?>
-=======
-     <?php $i = 1; ?>
-     <tbody>
-    <?php foreach ($users as $u): ?>
-    <tr class="user-row">
->>>>>>> 4ba565007834e00652d6c32b8716554a6c2e691c
     <td><strong><?= $i++ ?></strong></td>
 
     <td>
@@ -109,15 +102,9 @@ if (isset($_GET["delete"])) {
         Delete
         </a>
     <?php else: ?>
-<<<<<<< HEAD
         <a class="btn secondary btn-sm" onclick="showSelfWarning()" type="button">
         Delete
     </a>
-=======
-        <button class="btn secondary btn-sm" onclick="showSelfWarning()" type="button">
-        Delete
-        </button>
->>>>>>> 4ba565007834e00652d6c32b8716554a6c2e691c
     <?php endif; ?>
     </td>
     </tr>
@@ -126,21 +113,17 @@ if (isset($_GET["delete"])) {
     </table>
   </div>
 
-<<<<<<< HEAD
   <?php if (count($users) > 10): ?>
   <div style="text-align: center; margin-top: 20px;">
     <button id="show-more-users" class="btn secondary" onclick="showMoreUsers()">Show More Users</button>
   </div>
   <?php endif; ?>
 
-=======
->>>>>>> 4ba565007834e00652d6c32b8716554a6c2e691c
   <div >
     <a class="btn secondary" href="dashboard.php">← Back to Dashboard</a>
   </div>
 </div>
 
-<<<<<<< HEAD
 <script>
 function showMoreUsers() {
     const hidden = document.querySelectorAll('.hidden-user-row');
@@ -158,6 +141,4 @@ function showMoreUsers() {
 }
 </script>
 
-=======
->>>>>>> 4ba565007834e00652d6c32b8716554a6c2e691c
 <?php include "../ui_footer.php"; ?>

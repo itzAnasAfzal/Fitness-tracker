@@ -106,6 +106,76 @@ try {
     // ignore
 }
 
+// ═══════════════════════════════════════════
+// Fetch Chart Data — last 30 days
+// ═══════════════════════════════════════════
+$chart_labels   = [];
+$chart_workouts = [];
+$chart_calories = [];
+$chart_water    = [];
+
+try {
+    // Build last-30-days array
+    $today = new DateTime();
+    for ($i = 29; $i >= 0; $i--) {
+        $d = (clone $today)->modify("-$i days");
+        $chart_labels[]   = $d->format('M d');
+        $chart_workouts[] = 0;
+        $chart_calories[] = 0;
+        $chart_water[]    = 0;
+    }
+
+    // Workout counts per day
+    $stmt = $pdo->prepare("
+        SELECT date, COUNT(*) as cnt
+        FROM activity_logs
+        WHERE user_id = ? AND type = 'workout'
+          AND date >= DATE_SUB(CURDATE(), INTERVAL 29 DAY)
+        GROUP BY date ORDER BY date ASC
+    ");
+    $stmt->execute([$user['id']]);
+    foreach ($stmt->fetchAll() as $row) {
+        $key = array_search(date('M d', strtotime($row['date'])), $chart_labels);
+        if ($key !== false) $chart_workouts[$key] = (int)$row['cnt'];
+    }
+
+    // Calories per day
+    $stmt = $pdo->prepare("
+        SELECT date, SUM(value) as total
+        FROM activity_logs
+        WHERE user_id = ? AND type = 'meal'
+          AND date >= DATE_SUB(CURDATE(), INTERVAL 29 DAY)
+        GROUP BY date ORDER BY date ASC
+    ");
+    $stmt->execute([$user['id']]);
+    foreach ($stmt->fetchAll() as $row) {
+        $key = array_search(date('M d', strtotime($row['date'])), $chart_labels);
+        if ($key !== false) $chart_calories[$key] = (int)$row['total'];
+    }
+
+    // Water per day
+    $stmt = $pdo->prepare("
+        SELECT date, SUM(value) as total
+        FROM activity_logs
+        WHERE user_id = ? AND type = 'water'
+          AND date >= DATE_SUB(CURDATE(), INTERVAL 29 DAY)
+        GROUP BY date ORDER BY date ASC
+    ");
+    $stmt->execute([$user['id']]);
+    foreach ($stmt->fetchAll() as $row) {
+        $key = array_search(date('M d', strtotime($row['date'])), $chart_labels);
+        if ($key !== false) $chart_water[$key] = (int)$row['total'];
+    }
+
+} catch (PDOException $e) {
+    // Charts just won't render if DB error
+}
+
+$json_labels   = json_encode($chart_labels);
+$json_workouts = json_encode($chart_workouts);
+$json_calories = json_encode($chart_calories);
+$json_water    = json_encode($chart_water);
+
 ?>
 
 <?php include "../ui_header.php"; ?>
@@ -241,6 +311,41 @@ try {
         </div>
     <?php endif; ?>
 
+    <!-- Progress Charts -->
+    <div class="mt-30">
+        <h2 class="h1">📊 Progress Charts</h2>
+        <p class="p" style="margin-bottom:20px;">Your activity over the last 30 days.</p>
+
+        <?php
+        $hasData = array_sum($chart_workouts) + array_sum($chart_calories) + array_sum($chart_water) > 0;
+        if (!$hasData): ?>
+            <div class="card">
+                <p class="p">No activity data yet. Start logging workouts, meals, and water to see your charts!</p>
+            </div>
+        <?php else: ?>
+        <!-- Chart Tabs -->
+        <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px;">
+            <button class="btn btn-sm" id="tab-workout" onclick="showChart('workout')">🏋️ Workouts</button>
+            <button class="btn secondary btn-sm" id="tab-meal"    onclick="showChart('meal')">🥗 Calories</button>
+            <button class="btn secondary btn-sm" id="tab-water"   onclick="showChart('water')">💧 Water</button>
+        </div>
+        <div class="card" style="padding:20px;">
+            <div id="chart-workout">
+                <h3 style="margin:0 0 12px;">🏋️ Workouts Per Day</h3>
+                <canvas id="workoutChart" height="100"></canvas>
+            </div>
+            <div id="chart-meal" style="display:none;">
+                <h3 style="margin:0 0 12px;">🥗 Calories Logged Per Day (kcal)</h3>
+                <canvas id="mealChart" height="100"></canvas>
+            </div>
+            <div id="chart-water" style="display:none;">
+                <h3 style="margin:0 0 12px;">💧 Water Intake Per Day (ml)</h3>
+                <canvas id="waterChart" height="100"></canvas>
+            </div>
+        </div>
+        <?php endif; ?>
+    </div>
+
     <div class="mt-30">
         <h2 class="h1">Recent Activity</h2>
         <?php if (empty($logs)): ?>
@@ -352,6 +457,40 @@ function loadMoreLogs() {
     if (document.querySelectorAll('.hidden-log').length === 0) {
         document.getElementById('load-more-btn').style.display = 'none';
     }
+}
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
+const labels   = <?= $json_labels ?>;
+const wData    = <?= $json_workouts ?>;
+const calData  = <?= $json_calories ?>;
+const h2oData  = <?= $json_water ?>;
+
+const baseOpts = {
+    responsive: true,
+    plugins: { legend: { display: false } },
+    scales: {
+        x: { grid: { display: false }, ticks: { maxTicksLimit: 10 } },
+        y: { beginAtZero: true, grid: { color: '#f0f0f0' } }
+    }
+};
+
+const wChart = document.getElementById('workoutChart');
+const mChart = document.getElementById('mealChart');
+const hChart = document.getElementById('waterChart');
+
+if (wChart) new Chart(wChart, { type: 'bar', data: { labels, datasets: [{ label: 'Workouts', data: wData, backgroundColor: 'rgba(99,102,241,0.7)', borderRadius: 6, borderSkipped: false }] }, options: baseOpts });
+if (mChart) new Chart(mChart, { type: 'bar', data: { labels, datasets: [{ label: 'Calories (kcal)', data: calData, backgroundColor: 'rgba(16,185,129,0.7)', borderRadius: 6, borderSkipped: false }] }, options: baseOpts });
+if (hChart) new Chart(hChart, { type: 'line', data: { labels, datasets: [{ label: 'Water (ml)', data: h2oData, borderColor: '#3b82f6', backgroundColor: 'rgba(59,130,246,0.1)', pointBackgroundColor: '#3b82f6', tension: 0.3, fill: true }] }, options: baseOpts });
+
+function showChart(type) {
+    ['workout','meal','water'].forEach(t => {
+        document.getElementById('chart-' + t).style.display = t === type ? 'block' : 'none';
+        const btn = document.getElementById('tab-' + t);
+        if (btn) btn.className = t === type ? 'btn btn-sm' : 'btn secondary btn-sm';
+    });
 }
 </script>
 

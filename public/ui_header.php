@@ -28,6 +28,7 @@ $BASE_URL = '/fitness-tracker/public';
 
   <a href="<?= $BASE_URL ?>/tips.php">Tips</a>
   <a href="<?= $BASE_URL ?>/routines.php">Routines</a>
+  <a href="<?= $BASE_URL ?>/nutrition.php">Nutrition</a>
 
   <?php if (isset($_SESSION["user"])): ?>
 

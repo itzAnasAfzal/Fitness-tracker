@@ -95,28 +95,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action']) && $_POST['
 $stmt = $pdo->query("SELECT r.*, u.name as author FROM routines r LEFT JOIN users u ON r.created_by = u.id ORDER BY created_at DESC");
 $routines = $stmt->fetchAll();
 
-<<<<<<< HEAD
 // Fetch Feedbacks (include poster's role for display)
 $feedbacks = [];
 $stmt = $pdo->query("SELECT rf.*, u.name as user_name, u.role as user_role FROM routine_feedback rf JOIN users u ON rf.user_id = u.id ORDER BY rf.created_at ASC");
-=======
-// Fetch Feedbacks
-$feedbacks = [];
-$stmt = $pdo->query("SELECT rf.*, u.name as user_name FROM routine_feedback rf JOIN users u ON rf.user_id = u.id ORDER BY rf.created_at ASC");
->>>>>>> 4ba565007834e00652d6c32b8716554a6c2e691c
 while ($row = $stmt->fetch()) {
     $feedbacks[$row['routine_id']][] = $row;
 }
 
-<<<<<<< HEAD
 // Fetch Replies (include replier role so we can show correct tag)
 $replies = [];
 $stmt = $pdo->query("SELECT tr.*, u.name as trainer_name, u.role as replier_role FROM trainer_replies tr JOIN users u ON tr.trainer_id = u.id ORDER BY tr.created_at ASC");
-=======
-// Fetch Replies
-$replies = [];
-$stmt = $pdo->query("SELECT tr.*, u.name as trainer_name FROM trainer_replies tr JOIN users u ON tr.trainer_id = u.id ORDER BY tr.created_at ASC");
->>>>>>> 4ba565007834e00652d6c32b8716554a6c2e691c
 while ($row = $stmt->fetch()) {
     $replies[$row['feedback_id']][] = $row;
 }
@@ -218,7 +206,6 @@ include "ui_header.php";
                         <p class="small">No feedback yet.</p>
                     <?php else: ?>
                         <?php foreach ($current_feedbacks as $fIndex => $fb): ?>
-<<<<<<< HEAD
                             <div class="feedback-item-<?php echo $routine['id']; ?> <?php echo $fIndex >= 10 ? 'hidden-feedback' : ''; ?>" style="background: #f9f9f9; padding: 10px; border-radius: 8px; margin-bottom: 10px; <?php echo $fIndex >= 10 ? 'display: none;' : ''; ?>">
                                 <div class="flex-between-center">
                                     <?php
@@ -229,11 +216,6 @@ include "ui_header.php";
                                         };
                                     ?>
                                     <strong><?php echo htmlspecialchars($fb['user_name']); ?> <span class="badge" style="font-size:11px;"><?php echo $fbTag; ?></span></strong>
-=======
-                            <div class="feedback-item-<?php echo $routine['id']; ?> <?php echo $fIndex >= 4 ? 'hidden-feedback' : ''; ?>" style="background: #f9f9f9; padding: 10px; border-radius: 8px; margin-bottom: 10px; <?php echo $fIndex >= 4 ? 'display: none;' : ''; ?>">
-                                <div class="flex-between-center">
-                                    <strong><?php echo htmlspecialchars($fb['user_name']); ?></strong>
->>>>>>> 4ba565007834e00652d6c32b8716554a6c2e691c
                                     <span class="small"><?php echo date('M d, H:i', strtotime($fb['created_at'])); ?></span>
                                 </div>
                                 <p style="margin: 5px 0;"><?php echo htmlspecialchars($fb['comment']); ?></p>
@@ -245,7 +227,6 @@ include "ui_header.php";
                                 ?>
                                     <div style="margin-left: 20px; background: #eef2ff; padding: 8px; border-radius: 6px; margin-top: 5px;">
                                         <div class="flex-between-center">
-<<<<<<< HEAD
                                             <?php
                                                 $tag = match($reply['replier_role'] ?? 'user') {
                                                     'admin'   => 'Admin',
@@ -254,9 +235,6 @@ include "ui_header.php";
                                                 };
                                             ?>
                                             <strong style="color: var(--accent);"><?php echo htmlspecialchars($reply['trainer_name']); ?> <span class="badge" style="font-size:11px;"><?php echo $tag; ?></span></strong>
-=======
-                                            <strong style="color: var(--accent);"><?php echo htmlspecialchars($reply['trainer_name']); ?> (Trainer)</strong>
->>>>>>> 4ba565007834e00652d6c32b8716554a6c2e691c
                                             <span class="small"><?php echo date('M d, H:i', strtotime($reply['created_at'])); ?></span>
                                         </div>
                                         <p style="margin: 5px 0;"><?php echo htmlspecialchars($reply['reply']); ?></p>
@@ -278,11 +256,7 @@ include "ui_header.php";
                             </div>
                         <?php endforeach; ?>
                         
-<<<<<<< HEAD
                         <?php if (count($current_feedbacks) > 10): ?>
-=======
-                        <?php if (count($current_feedbacks) > 4): ?>
->>>>>>> 4ba565007834e00652d6c32b8716554a6c2e691c
                             <button id="load-more-fb-<?php echo $routine['id']; ?>" class="btn secondary btn-sm" onclick="loadMoreFeedbacks(<?php echo $routine['id']; ?>)">Load More Feedbacks</button>
                         <?php endif; ?>
 

@@ -19,31 +19,7 @@ if (isset($_SESSION["user"])) {
 
 
 
-<<<<<<< HEAD
 <?php include "ui_header.php"; ?>
-=======
-<!-- <!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Personal Fitness Tracker</title>
-  <link rel="stylesheet" href="assets/css/style.css">
-</head>
-<body>
-  <div class="container">
-    <div class="nav">
-      <div class="brand">Fit<span>Track</span></div>
-      <div style="display:flex; gap:8px; flex-wrap:wrap;">
-        <a href="index.php">Home</a>
-        <a href="tips.php">Tips</a>
-        <a href="routines.php">Routines</a>
-        <a class="btn secondary" href="login.php">Login</a>
-        <a class="btn" href="register.php">Register</a>
-      </div>
-    </div> -->
-  <?php include "ui_header.php"; ?>
->>>>>>> 4ba565007834e00652d6c32b8716554a6c2e691c
 
     <div class="hero">
       <div class="card">
@@ -78,10 +54,4 @@ if (isset($_SESSION["user"])) {
       </div>
     </div>
 
-<<<<<<< HEAD
-=======
-<!-- </div> 
- </body>
-</html> -->
->>>>>>> 4ba565007834e00652d6c32b8716554a6c2e691c
 <?php include "ui_footer.php"; ?>
