@@ -50,23 +50,39 @@ try {
 // Fetch Active Users (for suggestions)
 $users = [];
 try {
-    $stmt = $pdo->query("SELECT DISTINCT u.id, u.name, u.email FROM users u JOIN activity_logs al ON u.id = al.user_id ORDER BY al.created_at DESC LIMIT 20");
+    $stmt = $pdo->query("
+        SELECT DISTINCT u.id, u.name, u.email 
+        FROM users u 
+        JOIN activity_logs al ON u.id = al.user_id 
+        WHERE u.role = 'user'
+        ORDER BY al.created_at DESC 
+        LIMIT 20
+    ");
     $users = $stmt->fetchAll();
 } catch (PDOException $e) {
     // $error = "Error fetching users: " . $e->getMessage();
 }
-
 // Specific User View
 $view_user = null;
 $user_logs = [];
 if (isset($_GET['view_user'])) {
     $user_id = $_GET['view_user'];
-    $stmt = $pdo->prepare("SELECT * FROM users WHERE id = ?");
+    
+    // Fetch user only if role = 'user'
+    $stmt = $pdo->prepare("SELECT * FROM users WHERE id = ? AND role = 'user'");
     $stmt->execute([$user_id]);
     $view_user = $stmt->fetch();
 
     if ($view_user) {
-        $stmt = $pdo->prepare("SELECT * FROM activity_logs WHERE user_id = ? ORDER BY created_at DESC LIMIT 20");
+        // Fetch logs for that user
+        $stmt = $pdo->prepare("
+            SELECT al.* 
+            FROM activity_logs al
+            JOIN users u ON al.user_id = u.id
+            WHERE al.user_id = ? AND u.role = 'user'
+            ORDER BY al.created_at DESC
+            LIMIT 20
+        ");
         $stmt->execute([$user_id]);
         $user_logs = $stmt->fetchAll();
     }

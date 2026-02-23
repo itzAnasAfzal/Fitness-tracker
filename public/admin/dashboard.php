@@ -35,10 +35,11 @@ try {
 $recent_logs = [];
 try {
     $stmt = $pdo->query("
-        SELECT al.*, u.name as user_name 
-        FROM activity_logs al 
-        JOIN users u ON al.user_id = u.id 
-        ORDER BY al.created_at DESC
+    SELECT al.*, u.name as user_name 
+    FROM activity_logs al 
+    JOIN users u ON al.user_id = u.id 
+    WHERE u.role = 'user'
+    ORDER BY al.created_at DESC
     ");
     $recent_logs = $stmt->fetchAll();
 } catch (PDOException $e) {
@@ -49,12 +50,17 @@ try {
 $trainer_replies = [];
 try {
     $stmt = $pdo->query("
-        SELECT tr.*, u.name as trainer_name, u.role as replier_role, rf.comment as user_comment, r.title as routine_title
-        FROM trainer_replies tr 
-        JOIN users u ON tr.trainer_id = u.id
-        JOIN routine_feedback rf ON tr.feedback_id = rf.id
-        JOIN routines r ON rf.routine_id = r.id
-        ORDER BY tr.created_at DESC
+    SELECT tr.*, 
+           u.name as trainer_name, 
+           u.role as replier_role, 
+           rf.comment as user_comment, 
+           r.title as routine_title
+    FROM trainer_replies tr 
+    JOIN users u ON tr.trainer_id = u.id
+    JOIN routine_feedback rf ON tr.feedback_id = rf.id
+    JOIN routines r ON rf.routine_id = r.id
+    WHERE u.role = 'trainer'
+    ORDER BY tr.created_at DESC
     ");
     $trainer_replies = $stmt->fetchAll();
 } catch (PDOException $e) {

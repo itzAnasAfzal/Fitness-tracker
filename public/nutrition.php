@@ -85,7 +85,7 @@ include "ui_header.php";
 
 <div class="card">
     <div class="flex-between-center">
-        <h1 class="h1">🥗 Nutritional Advice</h1>
+        <h1 class="h1">Nutritional Advice</h1>
         <?php if ($is_admin_or_trainer && !$edit_item): ?>
             <button onclick="document.getElementById('add-form').classList.toggle('active')" class="btn">Add Advice</button>
         <?php endif; ?>

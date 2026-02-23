@@ -183,7 +183,7 @@ $json_water    = json_encode($chart_water);
 <div class="container">
     <div class="card">
         <div class="badge">My Fitness</div>
-        <h1 class="h1">Welcome, <?php echo htmlspecialchars($user["name"]); ?> 💪</h1>
+        <h1 class="h1">Welcome, <?php echo htmlspecialchars($user["name"]); ?> </h1>
         <p class="p">Track your daily progress and stay consistent!</p>
 
         <?php if ($error): ?>
@@ -210,9 +210,9 @@ $json_water    = json_encode($chart_water);
         </div>
 
         <div class="grid3">
-            <button onclick="toggleForm('workout-form')" class="btn">🏋️ Log Workout</button>
-            <button onclick="toggleForm('meal-form')" class="btn secondary">🥗 Log Meal</button>
-            <button onclick="toggleForm('water-form')" class="btn secondary">💧 Log Water</button>
+            <button onclick="toggleForm('workout-form')" class="btn">Log Workout</button>
+            <button onclick="toggleForm('meal-form')" class="btn secondary">Log Meal</button>
+            <button onclick="toggleForm('water-form')" class="btn secondary">Log Water</button>
         </div>
 
         <!-- Workout Form -->
@@ -270,7 +270,43 @@ $json_water    = json_encode($chart_water);
         </div>
     </div>
 
-    <!-- Trainer Replies -->
+  
+    <!-- Progress Charts -->
+    <div class="mt-30">
+        <h2 class="h1">Progress Charts</h2>
+        <p class="p" style="margin-bottom:20px;">Your activity over the last 30 days.</p>
+
+        <?php
+        $hasData = array_sum($chart_workouts) + array_sum($chart_calories) + array_sum($chart_water) > 0;
+        if (!$hasData): ?>
+            <div class="card">
+                <p class="p">No activity data yet. Start logging workouts, meals, and water to see your charts!</p>
+            </div>
+        <?php else: ?>
+        <!-- Chart Tabs -->
+        <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px;">
+            <button class="btn btn-sm" id="tab-workout" onclick="showChart('workout')">Workouts</button>
+            <button class="btn secondary btn-sm" id="tab-meal"    onclick="showChart('meal')">Calories</button>
+            <button class="btn secondary btn-sm" id="tab-water"   onclick="showChart('water')">Water</button>
+        </div>
+        <div class="card" style="padding:20px;">
+            <div id="chart-workout">
+                <h3 style="margin:0 0 12px;">Workouts Per Day</h3>
+                <canvas id="workoutChart" height="100"></canvas>
+            </div>
+            <div id="chart-meal" style="display:none;">
+                <h3 style="margin:0 0 12px;">Calories Logged Per Day (kcal)</h3>
+                <canvas id="mealChart" height="100"></canvas>
+            </div>
+            <div id="chart-water" style="display:none;">
+                <h3 style="margin:0 0 12px;">Water Intake Per Day (ml)</h3>
+                <canvas id="waterChart" height="100"></canvas>
+            </div>
+        </div>
+        <?php endif; ?>
+    </div>
+
+      <!-- Trainer Replies -->
     <?php if (!empty($replies)): ?>
         <div class="mt-30">
             <h2 class="h1">New Replies from Trainers</h2>
@@ -311,41 +347,6 @@ $json_water    = json_encode($chart_water);
         </div>
     <?php endif; ?>
 
-    <!-- Progress Charts -->
-    <div class="mt-30">
-        <h2 class="h1">📊 Progress Charts</h2>
-        <p class="p" style="margin-bottom:20px;">Your activity over the last 30 days.</p>
-
-        <?php
-        $hasData = array_sum($chart_workouts) + array_sum($chart_calories) + array_sum($chart_water) > 0;
-        if (!$hasData): ?>
-            <div class="card">
-                <p class="p">No activity data yet. Start logging workouts, meals, and water to see your charts!</p>
-            </div>
-        <?php else: ?>
-        <!-- Chart Tabs -->
-        <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px;">
-            <button class="btn btn-sm" id="tab-workout" onclick="showChart('workout')">🏋️ Workouts</button>
-            <button class="btn secondary btn-sm" id="tab-meal"    onclick="showChart('meal')">🥗 Calories</button>
-            <button class="btn secondary btn-sm" id="tab-water"   onclick="showChart('water')">💧 Water</button>
-        </div>
-        <div class="card" style="padding:20px;">
-            <div id="chart-workout">
-                <h3 style="margin:0 0 12px;">🏋️ Workouts Per Day</h3>
-                <canvas id="workoutChart" height="100"></canvas>
-            </div>
-            <div id="chart-meal" style="display:none;">
-                <h3 style="margin:0 0 12px;">🥗 Calories Logged Per Day (kcal)</h3>
-                <canvas id="mealChart" height="100"></canvas>
-            </div>
-            <div id="chart-water" style="display:none;">
-                <h3 style="margin:0 0 12px;">💧 Water Intake Per Day (ml)</h3>
-                <canvas id="waterChart" height="100"></canvas>
-            </div>
-        </div>
-        <?php endif; ?>
-    </div>
-
     <div class="mt-30">
         <h2 class="h1">Recent Activity</h2>
         <?php if (empty($logs)): ?>
@@ -359,9 +360,9 @@ $json_water    = json_encode($chart_water);
                         <div class="flex-between-center">
                             <span class="badge">
                                 <?php 
-                                    if($log['type'] == 'workout') echo '🏋️ Workout';
-                                    elseif($log['type'] == 'meal') echo '🥗 Meal';
-                                    else echo '💧 Water';
+                                    if($log['type'] == 'workout') echo 'Workout';
+                                    elseif($log['type'] == 'meal') echo 'Meal';
+                                    else echo 'Water';
                                 ?>
                             </span>
                             <span class="small"><?php echo htmlspecialchars($log['date']); ?></span>
