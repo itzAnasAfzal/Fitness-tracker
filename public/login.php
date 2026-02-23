@@ -70,7 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <div>
   <label><b>Password</b></label><br>
 
-  <div >
+  <div  class="inline-form" >
     <input id="login_password" type="password" name="password" required placeholder="Your password"
      />
 
@@ -86,7 +86,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 </div>
 
 
-    <button class="btn" type="submit">Login</button>
+    <button class="btn mt-30" type="submit">Login</button>
 
     <div class="small">
       Don’t have an account? <a href="register.php"><b>Create one</b></a>

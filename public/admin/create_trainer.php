@@ -75,7 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
      <div>
         <label class="small"><strong>Password</strong></label>
 
-        <div>
+        <div class="inline-form">
             <input
             id="trainer_password"
             type="password"
@@ -96,13 +96,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             </button>
         </div>
 
-        <div class="small">
-            Minimum 6 characters.
-        </div>
+
         </div>
 
 
-      <button class="btn" type="submit">
+      <button class="btn mt-30" type="submit">
          Create Trainer
       </button>
 

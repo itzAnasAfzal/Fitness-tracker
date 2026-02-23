@@ -75,10 +75,10 @@ if (isset($_GET["delete"])) {
     <td><?= htmlspecialchars($u["email"]) ?></td>
 
     <td>
-        <form method="post" onsubmit="return protectSelf(<?= $u['id'] ?>)">
+        <form method="post" class="inline-form" onsubmit="return protectSelf(<?= $u['id'] ?>)">
         <input type="hidden" name="user_id" value="<?= $u["id"] ?>">
 
-        <select name="role" class="neo-select">
+        <select name="role" >
             <option value="user" <?= $u["role"]==="user"?"selected":"" ?>>User</option>
             <option value="trainer" <?= $u["role"]==="trainer"?"selected":"" ?>>Trainer</option>
             <option value="admin" <?= $u["role"]==="admin"?"selected":"" ?>>Admin</option>
