@@ -10,7 +10,7 @@
   }
 
   function protectSelf(userId) {
-    const currentUserId = <?= (int)$_SESSION["user"]["id"] ?>;
+    const currentUserId = <?php echo isset($_SESSION["user"]) ? (int)$_SESSION["user"]["id"] : 0; ?>;
 
     if (userId === currentUserId) {
       alert("⚠️ You cannot change your own role.");
