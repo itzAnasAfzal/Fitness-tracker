@@ -13,7 +13,7 @@ $BASE_URL = '/fitness-tracker/public';
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>FitTrack</title>
-<link rel="stylesheet" href="<?= $BASE_URL ?>/assets/css/style2.css">
+<link rel="stylesheet" href="<?= $BASE_URL ?>/assets/css/style.css">
 </head>
 <body>
   <div class="container">
